@@ -8,6 +8,11 @@ on:
     branch:
       - main
   workflow_call:
+    secrets:
+      SSH_PRIVATE_KEY:
+        required: true
+      SSH_HOST:
+        required: true
 
 jobs:
   test:
