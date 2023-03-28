@@ -40,7 +40,12 @@ jobs:
   
   ci-cd:
     needs: [infra]
-    uses: yash-0007/ci-cd-terraform/.github/workflows/ci-cd.yml@main
-    with:
-      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      SSH_HOST: ${{ secrets.SSH_HOST }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+      - name: call ci-cd workflow
+        uses: yash-0007/ci-cd-terraform/.github/workflows/ci-cd.yml@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
