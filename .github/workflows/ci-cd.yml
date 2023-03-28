@@ -42,7 +42,6 @@ jobs:
           path: build/libs/esop-trading-0.1-all.jar
 
   deploy:
-    needs: [infra]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
