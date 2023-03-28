@@ -2,9 +2,11 @@ name: ci-cd-terraform
 
 on:
   push:
-    branch: "main"
+    branch:
+      - main
   pull_request:
-    branch: "main"
+    branch:
+      - main
 
 jobs:
   test:
