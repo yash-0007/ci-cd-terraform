@@ -37,11 +37,13 @@ jobs:
           cd ./aws
           terraform init
           echo ip=$(terraform apply -auto-approve | grep instance_public_ip | tr -d "instance_public_ip = " | tr -d \" |  cut -f1 -d ":"  | tr -d '\n') >> "$GITHUB_OUTPUT"
+      - name: Set output as secret
+        env:
+          SSH_HOST: ${{secrets.SSH_HOST}}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+        run: |
+          ::set-env name=SSH_HOST::${{secrets.SSH_HOST}}
   
   ci-cd:
     needs: [infra]
     uses: yash-0007/ci-cd-terraform/.github/workflows/ci-cd.yml@main
-    with:
-      secrets:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        SSH_HOST: ${{ secrets.SSH_HOST }}
