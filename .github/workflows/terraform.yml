@@ -42,5 +42,6 @@ jobs:
     needs: [infra]
     uses: yash-0007/ci-cd-terraform/.github/workflows/ci-cd.yml@main
     with:
-      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      SSH_HOST: ${{ secrets.SSH_HOST }}
+      secrets:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_HOST: ${{ secrets.SSH_HOST }}
