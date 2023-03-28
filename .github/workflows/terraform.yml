@@ -9,40 +9,7 @@ on:
       - infra-pipeline
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup java
-        uses: actions/setup-java@v3
-        with:
-          distribution: corretto
-          java-version: 17
-      - name: Test
-        run: ./gradlew test
-
-  build:
-    needs: [test]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup java
-        uses: actions/setup-java@v3
-        with:
-          distribution: corretto
-          java-version: 17
-      - name: Build
-        run: ./gradlew build -x check
-      - name: Copy jar file to artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: esop-trading-1.0
-          path: build/libs/esop-trading-0.1-all.jar
-
   infra:
-    needs: [build]
     runs-on: ubuntu-latest
     outputs:
       public_ip: ${{steps.create-instance.outputs.ip}}
@@ -70,26 +37,14 @@ jobs:
           cd ./aws
           terraform init
           echo ip=$(terraform apply -auto-approve | grep instance_public_ip | tr -d "instance_public_ip = " | tr -d \" |  cut -f1 -d ":"  | tr -d '\n') >> "$GITHUB_OUTPUT"
-
-  deploy:
+  
+  ci-cd:
     needs: [infra]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Download jar
-        uses: actions/download-artifact@v3
+      - name: Checkout main branch
+        uses: actions/checkout@v2
         with:
-          name: esop-trading-1.0
-      - name: Transfer artifact to EC2 instance
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_HOST: ${{needs.infra.outputs.public_ip}}
-        run: |
-          echo ${{needs.infra.outputs.public_ip}}
-          eval `ssh-agent`
-          ssh-add - <<< "${SSH_PRIVATE_KEY}"
-          scp -o StrictHostKeyChecking=no "deploy.sh" ec2-user@$SSH_HOST:~
-          scp -o StrictHostKeyChecking=no "esop-trading-0.1-all.jar" ec2-user@$SSH_HOST:~
-          ssh -o StrictHostKeyChecking=no ec2-user@$SSH_HOST -t "nohup sudo yum install java-17-amazon-corretto-headless -y"
-          ssh -o StrictHostKeyChecking=no ec2-user@$SSH_HOST -t "nohup sudo sh deploy.sh"
+          ref: main
+      - name: Run ci-cd Workflow
+        uses: ./.github/workflows/ci-cd.yml
