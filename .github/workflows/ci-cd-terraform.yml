@@ -68,3 +68,26 @@ jobs:
           cd ./aws
           terraform init
           echo ip=$(terraform apply -auto-approve | grep instance_public_ip | tr -d "instance_public_ip = " | tr -d \" |  cut -f1 -d ":"  | tr -d '\n') >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: [infra]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Download jar
+        uses: actions/download-artifact@v3
+        with:
+          name: esop-trading-1.0
+      - name: Transfer artifact to EC2 instance
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{needs.infra.outputs.public_ip}}
+        run: |
+          echo ${{needs.infra.outputs.public_ip}}
+          eval `ssh-agent`
+          ssh-add - <<< "${SSH_PRIVATE_KEY}"
+          scp -o StrictHostKeyChecking=no "deploy.sh" ec2-user@$SSH_HOST:~
+          scp -o StrictHostKeyChecking=no "esop-trading-0.1-all.jar" ec2-user@$SSH_HOST:~
+          ssh -o StrictHostKeyChecking=no ec2-user@$SSH_HOST -t "nohup sudo yum install java-17-amazon-corretto-headless -y"
+          ssh -o StrictHostKeyChecking=no ec2-user@$SSH_HOST -t "nohup sudo sh deploy.sh"
