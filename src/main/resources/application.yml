@@ -1,0 +1,39 @@
+micronaut:
+  application:
+    name: esopTrading
+  server:
+    cors:
+      enabled: true
+      configurations:
+        web:
+          allowedOrigins:
+            - http://localhost:5050
+            - http://localhost:8080
+        all:
+          allowedMethods:
+            - OPTIONS
+            - POST
+netty:
+  default:
+    allocator:
+      max-order: 3
+
+vesting:
+  breakup:
+    - 1
+    - 0
+    - 0
+    - 0
+  duration: 0
+
+inventoryLimit:
+  min: 0
+  max: 100000000000000000000
+
+walletLimit:
+  min: 0
+  max: 100000000000000000000
+
+fees:
+  normal: 3
+  performance: 2
