@@ -4,9 +4,11 @@ on:
   push:
     branch:
       - main
+      - infra-pipeline
   pull_request:
     branch:
       - main
+      - infra-pipeline
 
 jobs:
   test:
