@@ -34,7 +34,7 @@ jobs:
           distribution: corretto
           java-version: 17
       - name: Build
-        run: ./gradlew build -x check
+        run: ./gradlew build
       - name: Copy jar file to artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -42,6 +42,7 @@ jobs:
           path: build/libs/esop-trading-0.1-all.jar
 
   deploy:
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
