@@ -42,7 +42,7 @@ jobs:
     needs: [infra]
     runs-on: ubuntu-latest
     steps:
-      - name: call ci-cd workflow
-        uses: technote-space/workflow-call@v1
+      - name: call-ci-cd-workflow
+        uses: octo-org/workflow-runs@main
         with:
-          workflow_file: yash-0007/ci-cd-terraform/.github/workflows/ci-cd.yml@main
+          workflow_path: yash-0007/ci-cd-terraform/.github/workflows/ci-cd.yml@main
