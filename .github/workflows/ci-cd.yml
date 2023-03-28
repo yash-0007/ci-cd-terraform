@@ -97,10 +97,8 @@ jobs:
           ssh -o StrictHostKeyChecking=no ec2-user@$SSH_HOST -t "nohup sudo sh deploy.sh"
       - name: Set output as secret
         env:
+          SSH_HOST: ${{secrets.SSH_HOST}}
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
         run: |
           echo "::set-env name=SSH_HOST::${{needs.infra.outputs.public_ip}}"
           echo "Public IP address has been set as a secret named SSH_HOST"
-
-    env:
-      SSH_HOST: ${{secrets.SSH_HOST}}
