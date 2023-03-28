@@ -99,7 +99,7 @@ jobs:
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
         run: |
-          echo "::set-env name=SSH_HOST::${{needs.create-instance.outputs.ip}}"
+          echo "::set-env name=SSH_HOST::${{needs.infra.outputs.public_ip}}"
           echo "Public IP address has been set as a secret named SSH_HOST"
 
     env:
