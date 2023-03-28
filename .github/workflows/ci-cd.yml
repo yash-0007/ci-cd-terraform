@@ -96,6 +96,8 @@ jobs:
           ssh -o StrictHostKeyChecking=no ec2-user@$SSH_HOST -t "nohup sudo yum install java-17-amazon-corretto-headless -y"
           ssh -o StrictHostKeyChecking=no ec2-user@$SSH_HOST -t "nohup sudo sh deploy.sh"
       - name: Set output as secret
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
         run: |
           echo "::set-env name=SSH_HOST::${{needs.create-instance.outputs.ip}}"
           echo "Public IP address has been set as a secret named SSH_HOST"
