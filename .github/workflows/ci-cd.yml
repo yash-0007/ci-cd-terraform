@@ -4,11 +4,9 @@ on:
   push:
     branch:
       - main
-      - infra-pipeline
   pull_request:
     branch:
       - main
-      - infra-pipeline
 
 jobs:
   test:
@@ -95,10 +93,3 @@ jobs:
           scp -o StrictHostKeyChecking=no "esop-trading-0.1-all.jar" ec2-user@$SSH_HOST:~
           ssh -o StrictHostKeyChecking=no ec2-user@$SSH_HOST -t "nohup sudo yum install java-17-amazon-corretto-headless -y"
           ssh -o StrictHostKeyChecking=no ec2-user@$SSH_HOST -t "nohup sudo sh deploy.sh"
-      - name: Set output as secret
-        env:
-          SSH_HOST: ${{secrets.SSH_HOST}}
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-        run: |
-          echo "::set-env name=SSH_HOST::${{needs.infra.outputs.public_ip}}"
-          echo "Public IP address has been set as a secret named SSH_HOST"
