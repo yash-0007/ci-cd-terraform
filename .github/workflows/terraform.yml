@@ -41,4 +41,5 @@ jobs:
   ci-cd:
     needs: [infra]
     runs-on: ubuntu-latest
-    uses: yash-0007/ci-cd-terraform/.github/workflows/ci-cd.yml@main
+    steps:
+      uses: yash-0007/ci-cd-terraform/.github/workflows/ci-cd.yml@main
