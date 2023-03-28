@@ -1,4 +1,4 @@
-name: ci-cd-terraform
+name: terraform
 
 on:
   push:
