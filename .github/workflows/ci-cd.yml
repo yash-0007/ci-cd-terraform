@@ -8,16 +8,15 @@ on:
     branch:
       - main
   workflow_call:
-
-inputs:
-  ssh_private_key:
-    description: 'SSH_PRIVATE_KEY'
-    required: true
-    default: ${{ secrets.SSH_PRIVATE_KEY }}
-  ssh_host:
-    description: 'SSH_HOST'
-    required: true
-    default: ${{ secrets.SSH_HOST }}
+    inputs:
+      ssh_private_key:
+        description: 'SSH_PRIVATE_KEY'
+        required: true
+        default: ${{ secrets.SSH_PRIVATE_KEY }}
+      ssh_host:
+        description: 'SSH_HOST'
+        required: true
+        default: ${{ secrets.SSH_HOST }}
 
 jobs:
   test:
