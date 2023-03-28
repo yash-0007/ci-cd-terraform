@@ -42,9 +42,5 @@ jobs:
     needs: [infra]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout main branch
-        uses: actions/checkout@v3
-        with:
-          ref: main
       - name: Run ci-cd Workflow
-        uses: ./.github/workflows/ci-cd.yml
+        uses: ./.github/workflows/ci-cd.yml@main
