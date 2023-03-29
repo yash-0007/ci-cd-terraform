@@ -34,9 +34,7 @@ jobs:
         with:
           path: |
             cache-file.txt
-          key: ${{ runner.os }}-cache-abc
-          restore-keys: |
-            ${{ runner.os }}-cache-
+          key: cache-file
       - name: save abc in gitHub cache
         if: ${{ inputs.IP != '' }}
         run: echo ${{ inputs.IP }} > cache-file.txt
