@@ -29,17 +29,6 @@ jobs:
         with:
           distribution: corretto
           java-version: 17
-      - name: Restore from Cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            cache-file.txt
-          key: cache-file
-      - name: save abc in gitHub cache
-        if: ${{ inputs.IP != '' }}
-        run: echo ${{ inputs.IP }} > cache-file.txt
-      - name: Read from File
-        run: cat cache-file.txt
       - name: Test
         run: ./gradlew test
 
