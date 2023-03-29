@@ -46,7 +46,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cache-
       - name: save ip in gitHub cache
-        run: echo "ip" > ip.txt
+        run: echo infra.outputs.public_ip > ip.txt
       - name: access ip from GitHub cache
         run: cat ip.txt
   
