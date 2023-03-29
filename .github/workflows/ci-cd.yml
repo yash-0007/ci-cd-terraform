@@ -37,12 +37,12 @@ jobs:
           AWS_REGION: 'us-east-1'
         run: |
           aws s3 cp s3://yash-ip-bucket/ip.txt ip.txt
-          echo ip=$(cat ip.txt)
+          echo ip=$(cat ip.txt) >> $GITHUB_OUTPUT
       - name: echo ip
         env:
           SSH_HOST: ${{ steps.save.outputs.ip }}
         run: |
-          echo $(SSH_HOST)
+          echo $SSH_HOST
       - name: Test
         run: ./gradlew test
 
