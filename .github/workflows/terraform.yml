@@ -9,7 +9,27 @@ on:
       - infra-pipeline
 
 jobs:
-  infra:
+  plan:
+    runs-on: ubuntu-latest
+    environment: infra
+    outputs:
+      public_ip: ${{steps.create-instance.outputs.ip}}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
+      - name: terraform plan
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          cd ./aws
+          terraform plan
+  apply:
+    needs: [plan]
     runs-on: ubuntu-latest
     environment: infra
     outputs:
