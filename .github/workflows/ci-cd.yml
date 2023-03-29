@@ -25,16 +25,14 @@ jobs:
         with:
           distribution: corretto
           java-version: 17
-      - name: Cache ip
+      - name: Restore from Cache
         uses: actions/cache@v2
         with:
           path: |
-            ip.txt
-          key: ${{ runner.os }}-cache-ip
-          restore-keys: |
-              ${{ runner.os }}-cache-
-      - name: access ip from GitHub cache
-        run: cat ip.txt
+            /my-cache
+          key: ${{ runner.os }}-cache
+      - name: Read from File
+        run: cat /my-cache/my-file.txt
       - name: Test
         run: ./gradlew test
 
