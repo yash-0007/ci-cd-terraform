@@ -45,5 +45,5 @@ jobs:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       SSH_HOST: ${{ secrets.SSH_HOST }}
     with:
-      IP: ${{ infra.outputs.public_ip }}
+      IP: ${{ needs.infra.outputs.public_ip }}
 
