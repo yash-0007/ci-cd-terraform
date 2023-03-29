@@ -41,7 +41,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            abc.txt
+            ip.txt
           key: ${{ runner.os }}-cache-ip
           restore-keys: |
             ${{ runner.os }}-cache-
