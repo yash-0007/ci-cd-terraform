@@ -37,16 +37,6 @@ jobs:
           cd ./aws
           terraform init
           echo ip=$(terraform apply -auto-approve | grep instance_public_ip | tr -d "instance_public_ip = " | tr -d \" |  cut -f1 -d ":"  | tr -d '\n') >> "$GITHUB_OUTPUT"
-      - name: Save to Cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            cache-file.txt
-          key: ${{ runner.os }}-cache-abc
-          restore-keys: |
-            ${{ runner.os }}-cache-
-      - name: Write to File
-        run: echo "abc" > cache-file.txt
   
   ci-cd:
     needs: [infra]
