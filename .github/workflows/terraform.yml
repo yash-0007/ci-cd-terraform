@@ -1,0 +1,4 @@
+name: terraform
+
+on:
+  workflow_dispatch:
