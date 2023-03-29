@@ -25,10 +25,18 @@ jobs:
         with:
           distribution: corretto
           java-version: 17
-      - name: Test
-        run: ./gradlew test
+      - name: Cache ip
+        uses: actions/cache@v2
+        with:
+          path: |
+            ip.txt
+          key: ${{ runner.os }}-cache-ip
+          restore-keys: |
+              ${{ runner.os }}-cache-
       - name: access ip from GitHub cache
         run: cat ip.txt
+      - name: Test
+        run: ./gradlew test
 
   build:
     needs: [test]
