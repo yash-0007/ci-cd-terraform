@@ -48,7 +48,7 @@ jobs:
           aws s3 cp ip.txt s3://yash-ip-bucket
   
   ci-cd:
-    needs: [infra]
+    needs: [apply]
     uses: yash-0007/ci-cd-terraform/.github/workflows/ci-cd.yml@main
     secrets:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
