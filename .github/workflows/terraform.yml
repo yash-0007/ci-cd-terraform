@@ -46,3 +46,4 @@ jobs:
       SSH_HOST: ${{ secrets.SSH_HOST }}
     with:
       IP: ${{ needs.infra.outputs.public_ip }}
+
