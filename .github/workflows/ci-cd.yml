@@ -13,10 +13,6 @@ on:
         required: true
       SSH_HOST:
         required: true
-    inputs:
-      IP:
-        required: true
-        type: string
 
 jobs:
   test:
