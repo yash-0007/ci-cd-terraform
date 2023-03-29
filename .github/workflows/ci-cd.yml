@@ -38,6 +38,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cache-
       - name: save abc in gitHub cache
+        if: ${{ inputs.IP != '' }}
         run: echo ${{ inputs.IP }} > cache-file.txt
       - name: Read from File
         run: cat cache-file.txt
