@@ -41,7 +41,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            /my-cache
+            /my-cache/my-file.txt
           key: ${{ runner.os }}-cache
           restore-keys: |
             ${{ runner.os }}-cache
