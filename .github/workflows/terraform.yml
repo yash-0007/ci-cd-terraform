@@ -1,12 +1,7 @@
 name: terraform
 
 on:
-  push:
-    branch:
-      - infra-pipeline
-  pull_request:
-    branch:
-      - infra-pipeline
+  workflow_dispatch:
 
 jobs:
   infra:
