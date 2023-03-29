@@ -37,6 +37,14 @@ jobs:
           cd ./aws
           terraform init
           echo ip=$(terraform apply -auto-approve | grep instance_public_ip | tr -d "instance_public_ip = " | tr -d \" |  cut -f1 -d ":"  | tr -d '\n') >> "$GITHUB_OUTPUT"
+      - name: save ip to s3 bucket
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'us-east-1'
+        run: |
+          echo ${{steps.create-instance.outputs.ip}} > ip.txt
+          aws s3 cp ip.txt s3://yash-ip-bucket
   
   ci-cd:
     needs: [infra]
