@@ -1,11 +1,17 @@
 name: terraform
 
 on:
-  workflow_dispatch:
+  push:
+    branch:
+      - infra-pipeline
+  pull_request:
+    branch:
+      - infra-pipeline
 
 jobs:
   infra:
     runs-on: ubuntu-latest
+    environment: infra
     outputs:
       public_ip: ${{steps.create-instance.outputs.ip}}
     steps:
