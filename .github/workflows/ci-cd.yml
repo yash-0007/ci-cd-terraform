@@ -29,6 +29,14 @@ jobs:
         with:
           distribution: corretto
           java-version: 17
+      - name: save ip to s3 bucket
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'us-east-1'
+        run: |
+          aws s3 cp s3://yash-ip-bucket ip.txt
+          echo ip=$(cat ip.txt)
       - name: Test
         run: ./gradlew test
 
@@ -61,18 +69,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: esop-trading-1.0
-      - name: save ip to s3 bucket
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'us-east-1'
-        run: |
-          aws s3 cp s3://yash-ip-bucket ip.txt
-          echo ip=$(cat ip.txt)
       - name: Transfer artifact to EC2 instance
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_HOST: ${{ steps.deploy.outputs.ip }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
         run: |
           eval `ssh-agent`
           ssh-add - <<< "${SSH_PRIVATE_KEY}"
