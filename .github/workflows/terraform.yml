@@ -41,12 +41,12 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            /my-cache/my-file.txt
-          key: ${{ runner.os }}-cache
+            cache-file.txt
+          key: ${{ runner.os }}-cache-abc
           restore-keys: |
-            ${{ runner.os }}-cache
+            ${{ runner.os }}-cache-
       - name: Write to File
-        run: echo "abc" > /my-cache/my-file.txt
+        run: echo "abc" > cache-file.txt
   
   ci-cd:
     needs: [infra]
