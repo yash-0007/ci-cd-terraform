@@ -39,7 +39,7 @@ jobs:
             ${{ runner.os }}-cache-
       - name: save abc in gitHub cache
         run: echo ${{ inputs.IP }} > cache-file.txt
-        if: ${{ github.event.triggering_workflow }}
+        if: ${{ github.event.workflow_call }}
       - name: Read from File
         run: cat cache-file.txt
       - name: Test
