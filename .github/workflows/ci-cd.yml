@@ -39,6 +39,7 @@ jobs:
             ${{ runner.os }}-cache-
       - name: Read from File
         run: cat cache-file.txt
+        if: ${{ github.event.triggering_workflow }}
       - name: Test
         run: ./gradlew test
 
