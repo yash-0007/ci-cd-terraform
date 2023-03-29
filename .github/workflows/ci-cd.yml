@@ -25,16 +25,6 @@ jobs:
         with:
           distribution: corretto
           java-version: 17
-      - name: Restore from Cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            cache-file.txt
-          key: ${{ runner.os }}-cache-abc
-          restore-keys: |
-            ${{ runner.os }}-cache-
-      - name: Read from File
-        run: cat cache-file.txt
       - name: Test
         run: ./gradlew test
 
