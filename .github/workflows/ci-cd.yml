@@ -62,6 +62,7 @@ jobs:
         with:
           name: esop-trading-1.0
       - name: save ip to s3 bucket
+        id: save
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -72,7 +73,7 @@ jobs:
       - name: Transfer artifact to EC2 instance
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_HOST: ${{ steps.deploy.outputs.ip }}
+          SSH_HOST: ${{ steps.save.outputs.ip }}
         run: |
           eval `ssh-agent`
           ssh-add - <<< "${SSH_PRIVATE_KEY}"
