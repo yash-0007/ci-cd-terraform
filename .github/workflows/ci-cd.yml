@@ -29,10 +29,12 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            /my-cache
-          key: ${{ runner.os }}-cache
+            cache-file.txt
+          key: ${{ runner.os }}-cache-abc
+          restore-keys: |
+            ${{ runner.os }}-cache-
       - name: Read from File
-        run: cat /my-cache/my-file.txt
+        run: cat cache-file.txt
       - name: Test
         run: ./gradlew test
 
