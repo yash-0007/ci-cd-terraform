@@ -38,7 +38,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cache-
       - name: save abc in gitHub cache
-        if: ${{ github.event_name == 'workflow_call' }}
         run: echo ${{ inputs.IP }} > cache-file.txt
       - name: Read from File
         run: cat cache-file.txt
