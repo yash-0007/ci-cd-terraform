@@ -37,9 +37,11 @@ jobs:
           key: ${{ runner.os }}-cache-abc
           restore-keys: |
             ${{ runner.os }}-cache-
+      - name: save abc in gitHub cache
+        run: echo ${{ inputs.IP }} > cache-file.txt
+        if: ${{ github.event.triggering_workflow }}
       - name: Read from File
         run: cat cache-file.txt
-        if: ${{ github.event.triggering_workflow }}
       - name: Test
         run: ./gradlew test
 
