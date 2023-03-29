@@ -11,7 +11,6 @@ on:
 jobs:
   plan:
     runs-on: ubuntu-latest
-    environment: infra
     outputs:
       public_ip: ${{steps.create-instance.outputs.ip}}
     steps:
@@ -27,6 +26,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           cd ./aws
+          terraform init
           terraform plan
   apply:
     needs: [plan]
