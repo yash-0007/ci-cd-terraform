@@ -68,8 +68,3 @@ resource "aws_instance" "app_server" {
     Name = "Yash-Gurukul"
   }
 }
-
-resource "aws_key_pair" "deployer" {
-  key_name   = "keypair"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCXIFO0eny+VCc8XvQdPzkKaX5LXT9b6FHJB25GjLJ2kMhb3n/8SAH0d9JVY8H4DsoTwh50iq1nB08HLhjiXdBH/NGWl3sOX3iQnjlTC+RkVpqaSD0oDWJ+gGbyK53YbagFvoUv+sHd6qwxFgxiKFFfBMYP+f1KBL5ipI1ew6izG/CXodsf0Ezy1+e3JJ2lYETSTZAvWRkfU+WOMIwH896ccSFtCVf3BHy1MnNLmDbRNi9i0+OKksKrCcDb+SPc6hvXaZj/RJSoyCavrTvtAqb5Tb4KUH0eAqMBGHuG49JdE9GV4dLUDHw6NWKHYnHhRtwsCPd3bxCFSqOV145WawRr yashn@Yashs-MacBook-Pro.local"
-}
