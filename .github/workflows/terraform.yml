@@ -65,6 +65,7 @@ jobs:
           AWS_REGION: 'us-east-1'
         run: |
           echo ${{steps.create-instance.outputs.ip}} > ip.txt
+          cat ip.txt
           aws s3 cp ip.txt s3://yash-ip-bucket
   
   ci-cd:
