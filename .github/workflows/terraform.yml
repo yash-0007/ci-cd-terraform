@@ -67,6 +67,7 @@ jobs:
           rm -rf ip.txt
           echo ${{steps.create-instance.outputs.ip}} > ip.txt
           aws s3 cp ip.txt s3://yash-ip-bucket
+          rm -rf ip.txt
   
   ci-cd:
     needs: [apply]
