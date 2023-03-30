@@ -61,7 +61,7 @@ resource "aws_instance" "app_server" {
   ami                    = "ami-00c39f71452c08778"
   instance_type          = "t2.micro"
   subnet_id              = aws_subnet.yash-public-subnet.id
-  key_name               = "keypair"
+  key_name               = "yash-key"
   vpc_security_group_ids = [aws_security_group.main.id]
 
   tags = {
