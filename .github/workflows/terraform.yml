@@ -64,7 +64,8 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'us-east-1'
         run: |
-          echo ${{steps.create-instance.outputs.ip}}
+          rm -rf ip.txt
+          echo ${{steps.create-instance.outputs.ip}} > ip.txt
           aws s3 cp ip.txt s3://yash-ip-bucket
   
   ci-cd:
